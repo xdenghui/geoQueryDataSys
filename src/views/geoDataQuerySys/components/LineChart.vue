@@ -31,6 +31,10 @@ export default {
       type: Object,
       required: true,
       default: () => {}
+    },
+    toFixed: {  // 保留几位小数
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -44,10 +48,9 @@ export default {
   watch: {
     chartData: {
       deep: true,
-      immediate: true,
       handler(val) {
         this.timeList = val.baseDataList.map(v => `${new Date(v.time).getHours()}:${new Date(v.time).getMinutes()}`)
-        this.numList = val.baseDataList.map(v => parseFloat(v.num).toFixed(2))
+        this.numList = val.baseDataList.map(v => parseFloat(v.num).toFixed(this.toFixed))
         this.val = val.baseDataList
         this.setOptions(val)
       }
