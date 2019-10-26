@@ -4,7 +4,7 @@
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;" class="chart_box">
       <div style="padding-top:35px;" class="progress_item">
         <span>当前滑坡概率</span>
-        <el-progress class="progress" :stroke-width="16" :color="customColorMethod" :percentage="nowPercentage" />
+        <el-progress type="circle" class="progress" :stroke-width="10" :color="customColorMethod" :percentage="nowPercentage" />
       </div>
       <line-chart :chart-data="currData" :toFixed="fixed" class="chart_style" />
     </el-row>
@@ -82,12 +82,14 @@ export default {
   .chart_box{
     display: flex;
     align-items: center;
-    .chart_style{
-      flex: 2;
-    }
     .progress_item{
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       color: #f56c6c;
+      padding-right: 16px;
       .progress{
         padding-top: 6px;
       }

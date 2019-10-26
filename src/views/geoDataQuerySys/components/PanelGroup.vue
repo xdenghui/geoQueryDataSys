@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
+  <el-row :gutter="20" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" v-for="(item, index) in cols" :key="index">
     <!-- <el-popover
       placement="top-start"
@@ -13,7 +13,8 @@
         </div>
         <!-- <div class="now_data">
           <span class="key">平均{{item.title}}</span>
-          <span class="num">{{newData.num}}</span>
+          <span class="num">{{item.avg}}</span>
+          <el-button type="text">详情</el-button>
         </div> -->
         <div class="card-panel-description" @click="queryData(item.nowReq, item.fixed)">
           <div class="card-panel-text">
@@ -67,6 +68,19 @@ export default {
       }
     }
   },
+  created() {
+    /* let reqList = ['get_T1', 'get_Humidity1_mean', 'get_Pressure1_mean', 'get_A1_variance', 'get_rainfall_mean', 'get_illuminance_mean', 'get_V1_mean',  'get_displacement1_mean', ];
+    reqList.map(v => {
+      api[v]({hour: 1}).then(({baseNumData}) => {
+        this.cols.map(c => {
+          if(c.nowReq === v){
+            c.avg = baseNumData.avg
+          }
+        })
+      })
+    })
+    console.log(this.cols); */
+  },
   mounted() {
     this.queryData('get_T1', 2)
   },
@@ -95,8 +109,10 @@ export default {
   }
 
   .card-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 108px;
-    cursor: pointer;
     font-size: 12px;
     position: relative;
     overflow: hidden;
@@ -127,7 +143,19 @@ export default {
         background: #34bfa3
       }
     }
-
+    .now_data{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #666;
+      font-weight: bold;
+      .key{
+        color: rgba(0,0,0,0.45);
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+    }
     .icon-people {
       color: #40c9c6;
     }
@@ -145,8 +173,9 @@ export default {
     }
 
     .card-panel-icon-wrapper {
+      cursor: pointer;
       float: left;
-      margin: 14px 0 0 14px;
+      margin-left: 14px;
       padding: 16px;
       transition: all 0.38s ease-out;
       border-radius: 6px;
@@ -158,10 +187,11 @@ export default {
     }
 
     .card-panel-description {
+      cursor: pointer;
       float: right;
       font-weight: bold;
-      margin: 26px;
-      margin-left: 0px;
+      padding: 26px;
+      padding-left: 0px;
       text-align: center;
       .card-panel-text {
         line-height: 18px;
