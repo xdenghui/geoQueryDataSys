@@ -3,8 +3,11 @@
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb class="breadcrumb-container" />
-
-    <div class="right-menu">
+    <div class="top_right_txt">
+      <svg-icon icon-class="position" class-name="card-panel-icon" />
+      兰州-老狼沟滑坡试验场
+    </div>
+    <!-- <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -27,7 +30,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -83,8 +86,12 @@ export default {
   .breadcrumb-container {
     float: left;
   }
-
-  .right-menu {
+  .top_right_txt{
+    font-size: 14px;
+    color: #97a8be;
+    padding-right: 15px;
+  }
+  .right-menu, .top_right_txt {
     float: right;
     height: 100%;
     line-height: 50px;
