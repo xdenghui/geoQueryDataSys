@@ -7,16 +7,16 @@
       trigger="hover"
       :content="item.description"> -->
        <!-- slot="reference" -->
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-people" @click="showDlg(item.nowReq, item.fixed, item.title)">
+      <div class="card-panel" @click="queryData(item.nowReq, item.fixed)">
+        <div class="card-panel-icon-wrapper icon-people">
           <svg-icon :icon-class="item.svg" class-name="card-panel-icon" />
         </div>
-        <!-- <div class="now_data">
+        <div class="now_data">
           <span class="key">平均{{item.title}}</span>
           <span class="num">{{item.avg}}</span>
-          <el-button type="text">详情</el-button>
-        </div> -->
-        <div class="card-panel-description" @click="queryData(item.nowReq, item.fixed)">
+          <el-button type="text" @click.stop="showDlg(item.nowReq, item.fixed, item.title)">详情</el-button>
+        </div>
+        <div class="card-panel-description">
           <div class="card-panel-text">
             {{item.title}}
           </div>
@@ -69,17 +69,16 @@ export default {
     }
   },
   created() {
-    /* let reqList = ['get_T1', 'get_Humidity1_mean', 'get_Pressure1_mean', 'get_A1_variance', 'get_rainfall_mean', 'get_illuminance_mean', 'get_V1_mean',  'get_displacement1_mean', ];
+    let reqList = ['get_T1', 'get_Humidity1_mean', 'get_Pressure1_mean', 'get_A1_variance', 'get_rainfall_mean', 'get_illuminance_mean', 'get_V1_mean',  'get_displacement1_mean', ];
     reqList.map(v => {
       api[v]({hour: 1}).then(({baseNumData}) => {
         this.cols.map(c => {
           if(c.nowReq === v){
-            c.avg = baseNumData.avg
+            c.avg = parseFloat(baseNumData.avg).toFixed(c.fixed)
           }
         })
       })
     })
-    console.log(this.cols); */
   },
   mounted() {
     this.queryData('get_T1', 2)
@@ -105,10 +104,11 @@ export default {
 .panel-group {
   margin-top: 18px;
   .card-panel-col {
-    margin-bottom: 32px;
+    margin-bottom: 22px;
   }
 
   .card-panel {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,7 +152,7 @@ export default {
       font-weight: bold;
       .key{
         color: rgba(0,0,0,0.45);
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 12px;
       }
     }
@@ -173,7 +173,6 @@ export default {
     }
 
     .card-panel-icon-wrapper {
-      cursor: pointer;
       float: left;
       margin-left: 14px;
       padding: 16px;
@@ -187,7 +186,6 @@ export default {
     }
 
     .card-panel-description {
-      cursor: pointer;
       float: right;
       font-weight: bold;
       padding: 26px;

@@ -75,6 +75,23 @@ export default {
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
+        title: {
+          text: '近一小时数据变化曲线图',
+          subtext: '点击上面按钮文字可切换相应曲线图',
+          textStyle: {
+            color: '#f56c6c',
+            formatter: [
+                '{a|一小时数据变化曲线图}'
+            ].join('\n'),
+            rich: {
+              a: {
+                align: 'right',
+                color: '#f0f'
+              }
+            },
+          }
+            
+        },
         xAxis: {
           data: this.timeList,
           /* boundaryGap: false,

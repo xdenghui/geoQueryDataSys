@@ -89,9 +89,9 @@ export default {
       justify-content: center;
       align-items: center;
       color: #f56c6c;
-      padding-right: 16px;
+      font-size: 20px;
       .progress{
-        padding-top: 6px;
+        padding-top: 10px;
       }
     }
   }
