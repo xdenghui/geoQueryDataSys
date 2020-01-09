@@ -616,6 +616,18 @@ export default {
             }
           }
         },
+        geo: {
+          regions: [{
+            name: 'guangdong',
+            selected: true,
+            itemStyle: {
+                normal: {
+                    areaColor: 'red',
+                    color: 'red'
+                }
+            }
+          }]
+        },
         animationDuration: 1000,
         animationEasing: "cubicOut",
         animationDurationUpdate: 1000

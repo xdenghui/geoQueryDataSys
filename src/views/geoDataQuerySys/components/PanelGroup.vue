@@ -4,7 +4,7 @@
       <div class="card-panel" @click="showDlg(item)">
         <div class="now_data">
           <span class="key">{{item.title}}</span>
-          <img :src="require(`@/assets/img/${item.svg}.png`)" alt="">
+          <img :src="item.svg && require(`@/assets/img/${item.svg}.png`)" alt="">
           <!-- <el-button type="text" @click.stop="showDlg(item.nowReq, item.fixed, item.title)">详情</el-button> -->
         </div>
       </div>

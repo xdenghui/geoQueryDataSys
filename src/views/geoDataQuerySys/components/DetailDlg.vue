@@ -7,28 +7,28 @@
   >
     <div class="dataRes">
       <div class="resItem max">
-        <i class="el-icon-top-left"></i>
+        <img src="@/assets/img/LT.png" alt="">
         <span class="right">
           <span class="txt">最大</span>
           <span class="num">{{nowReqObj.data && nowReqObj.data.baseNumData.max}}</span>
         </span>
       </div>
       <div class="resItem max">
-        <i class="el-icon-top-left"></i>
+        <img src="@/assets/img/RB.png" alt="">
         <span class="right">
           <span class="txt">最小</span>
           <span class="num">{{nowReqObj.data && nowReqObj.data.baseNumData.min}}</span>
         </span>
       </div>
       <div class="resItem max">
-        <i class="el-icon-top-left"></i>
+        <img src="@/assets/img/avg.png" alt="">
         <span class="right">
           <span class="txt">平均值</span>
           <span class="num">{{nowReqObj.data && nowReqObj.data.baseNumData.avg}}</span>
         </span>
       </div>
       <div class="resItem max">
-        <i class="el-icon-top-left"></i>
+        <img src="@/assets/img/now.png" alt="">
         <span class="right">
           <span class="txt">当前</span>
           <span class="num">{{nowReqObj.data && nowReqObj.data.baseDataList[nowReqObj.data.baseDataList.length-1].num}}</span>
@@ -166,7 +166,7 @@
       margin-left: 16px;
     }
     .right{
-      font-size: 12px;
+      font-size: 14px;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -188,9 +188,10 @@
   margin: 20px 0;
   img{
     margin-right: 16px;
+    width: 100%;
   }
   .content{
-    font-size: 12px;
+    font-size: 14px;
     .key{
       color: #000;
       font-size: 14px;
