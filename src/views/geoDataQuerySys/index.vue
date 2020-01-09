@@ -660,7 +660,8 @@ export default {
               emphasis: {
                 areaColor: "darkorange"
               }
-            }
+            },
+            zoom: 1.2
           },
           {
             name: '点',

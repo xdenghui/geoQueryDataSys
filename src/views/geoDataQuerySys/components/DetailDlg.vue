@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="detailBox">
-      <img :src="require(`@/assets/img/${nowReqObj.svg}.png`)" alt="">
+      <img :src="nowReqObj.svg && require(`@/assets/img/${nowReqObj.svg}.png`)" alt="">
       <div class="content">
         <div class="key">功能</div>
         <div class="des">使用高精度、高灵敏度和高可靠性MEMS孔隙水压力传感器，监控孔隙压力压力的变化；支持各种接口的数据采集仪；先进的技 术，更高的精度，实现了空隙压监测自动化、简单化。</div>
