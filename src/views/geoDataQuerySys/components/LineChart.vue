@@ -51,6 +51,7 @@ export default {
       handler(val) {
         this.timeList = val.baseDataList.map(v => `${new Date(v.time).getHours()}:${new Date(v.time).getMinutes()}`)
         this.numList = val.baseDataList.map(v => parseFloat(v.num).toFixed(this.toFixed))
+        // this.numList = val.baseDataList.map(v => parseFloat(v.num).toFixed(this.toFixed))
         this.val = val.baseDataList
         this.setOptions(val)
       }
@@ -76,8 +77,8 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         title: {
-          text: '近一小时数据变化曲线图',
-          subtext: '点击上面按钮文字可切换相应曲线图',
+          /* text: '近一小时数据变化曲线图',
+          subtext: '点击上面按钮文字可切换相应曲线图', */
           textStyle: {
             color: '#f56c6c',
             formatter: [

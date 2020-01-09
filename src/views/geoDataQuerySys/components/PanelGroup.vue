@@ -1,29 +1,13 @@
 <template>
   <el-row :gutter="20" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" v-for="(item, index) in cols" :key="index">
-    <!-- <el-popover
-      placement="top-start"
-      width="280"
-      trigger="hover"
-      :content="item.description"> -->
-       <!-- slot="reference" -->
-      <div class="card-panel" @click="queryData(item.nowReq, item.fixed)">
-        <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon :icon-class="item.svg" class-name="card-panel-icon" />
-        </div>
+    <el-col :xs="12" :sm="6" :lg="4" class="card-panel-col" v-for="(item, index) in cols" :key="index">
+      <div class="card-panel" @click="showDlg(item)">
         <div class="now_data">
-          <span class="key">平均{{item.title}}</span>
-          <span class="num">{{item.avg}}</span>
-          <el-button type="text" @click.stop="showDlg(item.nowReq, item.fixed, item.title)">详情</el-button>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{item.title}}
-          </div>
-          <count-to :start-val="0" :end-val="nowBaseData.length" :duration="2600" class="card-panel-num" />
+          <span class="key">{{item.title}}</span>
+          <img :src="require(`@/assets/img/${item.svg}.png`)" alt="">
+          <!-- <el-button type="text" @click.stop="showDlg(item.nowReq, item.fixed, item.title)">详情</el-button> -->
         </div>
       </div>
-    <!-- </el-popover> -->
     </el-col>
     <detail-dlg :show.sync="showDetailDlg" :nowReqObj="nowReqObj" />
   </el-row>
@@ -38,14 +22,17 @@ export default {
   data() {
     return {
       cols: [
-				{title: '温度', fixed: 2, nowReq: 'get_T1', svg: 'temp', description: '采用VI子程序技术作为温度值的输入，设置了温度值的输出模式（摄氏或华氏），输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-				{title: '湿度', fixed: 4, nowReq: 'get_Humidity1_mean', svg: 'humidity', description: '采用VI子程序技术作为湿度值的输入，设置了湿度的输出模式，输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-				{title: '孔隙压', fixed: 3, nowReq: 'get_Pressure1_mean', svg: 'kong', description: '采用VI子程序技术作为孔隙压的输入，设置了空隙压的输出模式，输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-				{title: '加速度', fixed: 4, nowReq: 'get_A1_variance', svg: 'Acc', description: '采用VI子程序技术作为加速度的输入，设置了空隙压的输出模式，输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-				{title: '降雨量', fixed: 4, nowReq: 'get_rainfall_mean', svg: 'rain', description: '采用VI子程序技术作为降雨量的输入，设置了温度值的输出模式（摄氏或华氏），输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-				{title: '光照度', fixed: 0, nowReq: 'get_illuminance_mean', svg: 'illuminance', description: '采用VI子程序技术作为光照度的输入，设置了湿度的输出模式，输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-				{title: '电极电势', fixed: 0, nowReq: 'get_V1_mean', svg: 'dian', description: '采用VI子程序技术作为电极电势的输入，设置了空隙压的输出模式，输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
-        {title: '地表位移', fixed: 1, nowReq: 'get_displacement1_mean', svg: 'displacement', description: '采用VI子程序技术作为地表位移的输入，设置了空隙压的输出模式，输出数据统计信息包括最大值、最小值、平均值，运行后的动态显示到界面文本.'},
+				{title: '空气温度传感器', fixed: 2, nowReq: 'get_T1', svg: 'temp'},
+				{title: '土壤温湿度传感器', fixed: 4, nowReq: 'get_Humidity1_mean', svg: 'humidity'},
+				{title: '孔隙压传感器', fixed: 3, nowReq: 'get_Pressure1_mean', svg: 'kong'},
+				// {title: '加速度', fixed: 4, nowReq: 'get_A1_variance', svg: 'Acc'},
+				{title: '雨量计', fixed: 4, nowReq: 'get_rainfall_mean', svg: 'rain'},
+				// {title: '光照度', fixed: 0, nowReq: 'get_illuminance_mean', svg: 'illuminance'},
+				{title: '微震监测计', fixed: 0, nowReq: 'get_illuminance_mean', svg: 'zhen'},
+				{title: '不极化电极', fixed: 0, nowReq: 'get_V1_mean', svg: 'dian'},
+        {title: 'GNSS位移检测仪', fixed: 1, nowReq: 'get_displacement1_mean', svg: 'GNSS'},
+        {title: '拉线式位移计', fixed: 1, nowReq: 'get_displacement1_mean', svg: 'line'},
+        {title: '大气压传感器', fixed: 1, nowReq: 'get_displacement1_mean', svg: 'air'},
       ],
       nowReqObj: {},
       newData: {},
@@ -84,9 +71,13 @@ export default {
     this.queryData('get_T1', 2)
   },
   methods: {
-    showDlg(req, fixed, title){
-      this.showDetailDlg = true
-      this.nowReqObj = {req, fixed, title}
+    showDlg({nowReq, fixed, title, svg}){
+      api[nowReq]({hour: 1}).then((data) => {
+        this.showDetailDlg = true
+        this.$nextTick(() => {
+          this.nowReqObj = {data, fixed, title, svg}
+        })
+      })
     },
     queryData(req, fixed){
       api[req]({hour: 1}).then((data) => {
@@ -120,7 +111,7 @@ export default {
     background: #fff;
     box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
     border-color: rgba(0, 0, 0, .05);
-
+    height: 200px;
     &:hover {
       .card-panel-icon-wrapper {
         color: #fff;
@@ -150,10 +141,12 @@ export default {
       align-items: center;
       color: #666;
       font-weight: bold;
+      width: 100%;
+      height: 100%;
       .key{
         color: rgba(0,0,0,0.45);
         font-size: 14px;
-        margin-bottom: 12px;
+        padding: 8px 0;
       }
     }
     .icon-people {
